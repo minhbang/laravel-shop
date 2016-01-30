@@ -16,7 +16,7 @@
                         <td class="text-left">
                             <a href="{{$item->attributes->url}}">{{$item->name}}</a>
                         </td>
-                        <td class="min-width">x {{$item->quantity}}</td>
+                        <td class="min-width text-nowrap">x {{$item->quantity}}</td>
                         <td class="text-right min-width">{{price_format($item->price, 'đ', false, true)}}</td>
                         <td class="min-width">
                             @if($removable)
@@ -60,10 +60,10 @@
         <table class="item">
             <tr class="item-row-__ID__">
                 <td class="min-width">
-                    <a href="__URL__"><img src="#__IMG_SM__" alt="__NAME__" title="__NAME__" width="{{$config['width_sm']}}" height="{{$config['height_sm']}}"></a>
+                    <a href="__URL__"><img data-src="#__IMG_SM__" alt="__NAME__" title="__NAME__" width="{{$config['width_sm']}}" height="{{$config['height_sm']}}"></a>
                 </td>
                 <td class="text-left"><a href="__URL__">__NAME__</a></td>
-                <td class="min-width">x __QUANTITY__</td>
+                <td class="min-width text-nowrap">x __QUANTITY__</td>
                 <td class="text-right min-width">__PRICE__</td>
                 <td class="min-width">
                     <a href="{{route('cart.remove', ['product' => '__ID__'])}}" data-action="cart-remove" data-ref="cart-dropdown" data-id="__ID__"><i class="fa fa-times"></i></a>
@@ -74,7 +74,7 @@
             <div class="cart-form-modal">
                 <div class="row product-info">
                     <div class="col-xs-4">
-                        <img class="img-responsive" src="#__IMG__" alt="__NAME__" title="__NAME__" width="{{$config['width']}}" height="{{$config['height']}}">
+                        <img class="img-responsive" data-src="#__IMG__" alt="__NAME__" title="__NAME__" width="{{$config['width']}}" height="{{$config['height']}}">
                     </div>
                     <div class="col-xs-8 product-details"><h3 class="name">__NAME__</h3>
 

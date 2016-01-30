@@ -2,15 +2,32 @@
 namespace Minhbang\Shop\Controllers\Frontend;
 
 use Minhbang\Category\Item as Category;
+use Minhbang\Option\OptionableController;
 use Minhbang\Product\Models\Product;
 use Minhbang\Kit\Extensions\Controller;
+use Minhbang\Shop\DisplayOption;
 
 /**
  * Class CategoryController
+ *
  * @package Minhbang\Shop\Controllers\Frontend
  */
 class CategoryController extends Controller
 {
+    use OptionableController;
+
+    /**
+     * @return array
+     */
+    protected function optionConfig()
+    {
+        return [
+            'zone'  => 'shop',
+            'group' => 'category',
+            'class' => DisplayOption::class,
+        ];
+    }
+
     /**
      * @return \Illuminate\View\View
      * @throws \Laracasts\Presenter\Exceptions\PresenterException
@@ -19,6 +36,7 @@ class CategoryController extends Controller
     {
         $categories = app('category')->manage('product')->roots();
         $this->buildBreadcrumbs(['#' => trans('category::common.category')]);
+
         return view('shop::frontend.category.index', compact('categories'));
     }
 
@@ -33,13 +51,16 @@ class CategoryController extends Controller
         if (is_null($category = Category::findBySlug($slug))) {
             abort(404);
         }
-        $products = Product::orderPosition()->categorized($category)->paginate(12);
+
+        $query = Product::queryDefault()->categorized($category);
+        $products = $this->optionAppliedPaginate($query, true);
         $this->buildBreadcrumbs(
             [
                 route('category.index') => trans('category::common.category'),
-                '#' => $category->title,
+                '#'                     => $category->title,
             ]
         );
+
         return view('shop::frontend.category.show', compact('category', 'products'));
     }
 }

@@ -32,5 +32,10 @@ return [
             'page_size' => 6,
             'type'      => 'th',
         ],
+        'category' => [
+            'sort'      => 'updated.desc',
+            'page_size' => 6,
+            'type'      => 'th',
+        ],
     ],
 ];
