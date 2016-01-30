@@ -1,10 +1,11 @@
 <?php
 /**
- * LaravelShop routes
+ * Shop routes
  */
 Route::group(
-    ['namespace' => 'Minhbang\LaravelShop\Controllers\Frontend'],
+    ['namespace' => 'Minhbang\Shop\Controllers\Frontend', 'middleware' => config('shop.middlewares.frontend')],
     function () {
+        Route::get('/', 'HomeController@index');
         // Category
         Route::group(
             ['prefix' => 'category'],
@@ -36,11 +37,13 @@ Route::group(
                 Route::get('show', ['as' => 'show', 'uses' => 'WishlistController@show']);
             }
         );
+        // Search
+        Route::get('search', ['as' => 'search', 'uses' => 'SearchController@index']);
     }
 );
 
 Route::group(
-    ['prefix' => 'backend', 'namespace' => 'Minhbang\LaravelShop\Controllers\Backend'],
+    ['prefix' => 'backend', 'namespace' => 'Minhbang\Shop\Controllers\Backend', 'middleware' => config('shop.middlewares.backend')],
     function () {
         // Order
         Route::group(['prefix' => 'order', 'as' => 'backend.order.'], function () {

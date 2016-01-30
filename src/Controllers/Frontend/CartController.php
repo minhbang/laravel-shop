@@ -1,11 +1,11 @@
 <?php
-namespace Minhbang\LaravelShop\Controllers\Frontend;
+namespace Minhbang\Shop\Controllers\Frontend;
 
-use Minhbang\LaravelProduct\Models\Product;
-use Minhbang\LaravelShop\Requests\OrderRequest;
-use Minhbang\LaravelKit\Extensions\Controller;
-use Minhbang\LaravelShop\Models\Order;
-use Minhbang\LaravelContent\Content;
+use Minhbang\Product\Models\Product;
+use Minhbang\Shop\Requests\OrderRequest;
+use Minhbang\Kit\Extensions\Controller;
+use Minhbang\Shop\Models\Order;
+use Minhbang\Content\Content;
 use Illuminate\Http\Request;
 use Cart;
 
@@ -28,7 +28,7 @@ class CartController extends Controller
      * Nếu có trong giỏ hàng rồi thì + dồn quantity
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -46,7 +46,7 @@ class CartController extends Controller
     /**
      * Bỏ $product ra khỏi Giỏ hàng
      *
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -60,7 +60,7 @@ class CartController extends Controller
      * Overide quantity của $product trong giỏ hàng
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -99,6 +99,11 @@ class CartController extends Controller
         return view('shop::frontend.cart.checkout', compact('order', 'terms_conditions') + Cart::getInfo());
     }
 
+    /**
+     * @param \Minhbang\Shop\Requests\OrderRequest $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function complete(OrderRequest $request)
     {
         if (Cart::isEmpty()) {

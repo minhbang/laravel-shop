@@ -1,5 +1,5 @@
 <?php
-namespace Minhbang\LaravelShop\Facades;
+namespace Minhbang\Shop\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

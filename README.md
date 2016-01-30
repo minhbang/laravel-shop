@@ -21,7 +21,7 @@ $ composer update
 
 * **Thêm vào file config/app.php => 'providers'**
 ```php
-	Minhbang\LaravelContent\ContentServiceProvider::class,
+	Minhbang\Content\ContentServiceProvider::class,
 ```
 
 * **Publish config và database migrations**

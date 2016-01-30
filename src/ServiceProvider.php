@@ -1,23 +1,23 @@
 <?php
 
-namespace Minhbang\LaravelShop;
+namespace Minhbang\Shop;
 
 use Illuminate\Routing\Router;
 use Darryldecode\Cart\CartCondition;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
-use Minhbang\LaravelShop\Extensions\Cart;
-use Minhbang\LaravelShop\Html\ShopWidget;
-use Minhbang\LaravelShop\Facades\CartFacade;
-use Minhbang\LaravelShop\Facades\WishlistFacade;
-use Minhbang\LaravelShop\Facades\ShopWidgetFacade;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Minhbang\Shop\Extensions\Cart;
+use Minhbang\Shop\Html\ShopWidget;
+use Minhbang\Shop\Facades\CartFacade;
+use Minhbang\Shop\Facades\WishlistFacade;
+use Minhbang\Shop\Facades\ShopWidgetFacade;
 
 /**
- * Class ShopServiceProvider
+ * Class ServiceProvider
  *
- * @package Minhbang\LaravelShop
+ * @package Minhbang\Shop
  */
-class ShopServiceProvider extends ServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -55,7 +55,7 @@ class ShopServiceProvider extends ServiceProvider
         // pattern filters
         $router->pattern('order', '[0-9]+');
         // model bindings
-        $router->model('order', 'Minhbang\LaravelShop\Models\Order');
+        $router->model('order', 'Minhbang\Shop\Models\Order');
     }
 
     /**

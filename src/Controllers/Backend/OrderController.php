@@ -1,8 +1,8 @@
 <?php
-namespace Minhbang\LaravelShop\Controllers\Backend;
+namespace Minhbang\Shop\Controllers\Backend;
 
-use Minhbang\LaravelKit\Extensions\BackendController as Controller;
-use Minhbang\LaravelShop\Models\Order;
+use Minhbang\Kit\Extensions\BackendController as Controller;
+use Minhbang\Shop\Models\Order;
 use Datatable;
 use Html;
 use Request;
@@ -10,15 +10,10 @@ use Request;
 /**
  * Class OrderController
  *
- * @package Minhbang\LaravelShop\Controllers\Backend
+ * @package Minhbang\Shop\Controllers\Backend
  */
 class OrderController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct(config('shop.middlewares.backend'));
-    }
-
     /**
      * Danh sách Order theo định dạng của Datatables.
      *
@@ -26,7 +21,7 @@ class OrderController extends Controller
      */
     public function data()
     {
-        /** @var \Minhbang\LaravelShop\Models\Order $query */
+        /** @var \Minhbang\Shop\Models\Order $query */
         $query = Order::queryDefault();
         if (Request::has('search_form')) {
             $query->searchWhere('orders.status')
@@ -61,8 +56,8 @@ class OrderController extends Controller
                 'actions',
                 function (Order $model) {
                     return Html::tableActions(
-                        'backend/order',
-                        $model->id,
+                        'backend.order',
+                        ['order' => $model->id],
                         $model->name,
                         trans('shop::order.order'),
                         [
@@ -111,7 +106,7 @@ class OrderController extends Controller
     /**
      * Xem chi tiết đơn hàng
      *
-     * @param \Minhbang\LaravelShop\Models\Order $order
+     * @param \Minhbang\Shop\Models\Order $order
      *
      * @return \Illuminate\View\View
      */
@@ -130,7 +125,7 @@ class OrderController extends Controller
     /**
      * Xóa đơn hàng
      *
-     * @param \Minhbang\LaravelShop\Models\Order $order
+     * @param \Minhbang\Shop\Models\Order $order
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -148,7 +143,7 @@ class OrderController extends Controller
     /**
      * Cập nhật trạng thái Đơn hàng
      *
-     * @param \Minhbang\LaravelShop\Models\Order $order
+     * @param \Minhbang\Shop\Models\Order $order
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      */

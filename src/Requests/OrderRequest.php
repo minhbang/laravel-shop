@@ -1,12 +1,12 @@
 <?php
-namespace Minhbang\LaravelShop\Requests;
+namespace Minhbang\Shop\Requests;
 
-use Minhbang\LaravelKit\Extensions\Request;
+use Minhbang\Kit\Extensions\Request;
 
 /**
  * Class OrderRequest
  *
- * @package Minhbang\LaravelShop\Requests
+ * @package Minhbang\Shop\Requests
  */
 class OrderRequest extends Request
 {
@@ -35,7 +35,7 @@ class OrderRequest extends Request
      */
     public function rules()
     {
-        /** @var \Minhbang\LaravelProduct\Models\Order $order */
+        /** @var \Minhbang\Product\Models\Order $order */
         if ($order = $this->route('order')) {
             //update Order
         } else {

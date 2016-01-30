@@ -1,5 +1,5 @@
 <?php
-namespace Minhbang\LaravelShop\Extensions;
+namespace Minhbang\Shop\Extensions;
 
 use Darryldecode\Cart\Cart as BaseCart;
 
@@ -28,7 +28,7 @@ class Cart extends BaseCart
     }
 
     /**
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      *
      * @return bool
      */
@@ -38,7 +38,7 @@ class Cart extends BaseCart
     }
 
     /**
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      */
     public function removeProduct($product)
     {
@@ -46,7 +46,7 @@ class Cart extends BaseCart
     }
 
     /**
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      * @param int $quantity
      */
     public function addProduct($product, $quantity = 1)
@@ -68,7 +68,7 @@ class Cart extends BaseCart
     }
 
     /**
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      * @param int $quantity
      */
     public function updateProduct($product, $quantity)

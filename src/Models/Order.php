@@ -1,16 +1,16 @@
 <?php
-namespace Minhbang\LaravelShop\Models;
+namespace Minhbang\Shop\Models;
 
 use Laracasts\Presenter\PresentableTrait;
-use Minhbang\LaravelKit\Extensions\Model;
-use Minhbang\LaravelKit\Traits\Model\HasAlias;
-use Minhbang\LaravelKit\Traits\Model\SearchQuery;
-use Minhbang\LaravelKit\Traits\Model\DatetimeQuery;
+use Minhbang\Kit\Extensions\Model;
+use Minhbang\Kit\Traits\Model\HasAlias;
+use Minhbang\Kit\Traits\Model\SearchQuery;
+use Minhbang\Kit\Traits\Model\DatetimeQuery;
 
 /**
  * Class Order
  *
- * @package Minhbang\LaravelShop\Models
+ * @package Minhbang\Shop\Models
  * @property integer $id
  * @property string $name
  * @property string $email
@@ -21,31 +21,31 @@ use Minhbang\LaravelKit\Traits\Model\DatetimeQuery;
  * @property integer $tax
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Minhbang\LaravelProduct\Models\Product[] $products
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Minhbang\Product\Models\Product[] $products
  * @property-read mixed $resource_name
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order wherePhone($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereAddress($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereStatus($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereSubtotal($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereTax($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order queryDefault()
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelKit\Extensions\Model except($id = null)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order orderCreated($direction = 'desc')
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order orderUpdated($direction = 'desc')
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order period($start = null, $end = null, $field = 'created_at', $end_if_day = false, $is_month = false)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order today($field = 'created_at')
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order yesterday($same_time = false, $field = 'created_at')
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order thisWeek($field = 'created_at')
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order thisMonth($field = 'created_at')
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order searchWhere($column, $operator = '=', $fn = null)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order searchWhereIn($column, $fn)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order searchWhereBetween($column, $fn = null)
- * @method static \Illuminate\Database\Query\Builder|\Minhbang\LaravelShop\Models\Order searchWhereInDependent($column, $column_dependent, $fn, $empty = [])
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order wherePhone($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereSubtotal($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereTax($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order queryDefault()
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Kit\Extensions\Model except($id = null)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order orderCreated($direction = 'desc')
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order orderUpdated($direction = 'desc')
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order period($start = null, $end = null, $field = 'created_at', $end_if_day = false, $is_month = false)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order today($field = 'created_at')
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order yesterday($same_time = false, $field = 'created_at')
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order thisWeek($field = 'created_at')
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order thisMonth($field = 'created_at')
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhere($column, $operator = '=', $fn = null)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhereIn($column, $fn)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhereBetween($column, $fn = null)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhereInDependent($column, $column_dependent, $fn, $empty = [])
  */
 class Order extends Model
 {
@@ -59,7 +59,7 @@ class Order extends Model
     use DatetimeQuery;
     use SearchQuery;
     use HasAlias;
-    protected $presenter = 'Minhbang\LaravelShop\Presenters\OrderPresenter';
+    protected $presenter = 'Minhbang\Shop\Presenters\OrderPresenter';
     protected $table = 'orders';
     protected $fillable = ['name', 'email', 'phone', 'address'];
 
@@ -116,7 +116,7 @@ class Order extends Model
      */
     public function products()
     {
-        return $this->belongsToMany('Minhbang\LaravelProduct\Models\Product')->withPivot('quantity');
+        return $this->belongsToMany('Minhbang\Product\Models\Product')->withPivot('quantity');
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
-namespace Minhbang\LaravelShop\Controllers\Frontend;
+namespace Minhbang\Shop\Controllers\Frontend;
 
-use Minhbang\LaravelKit\Extensions\Controller;
+use Minhbang\Kit\Extensions\Controller;
 
 /**
  * Class HomeController
  *
- * @package Minhbang\LaravelShop\Controllers\Frontend
+ * @package Minhbang\Shop\Controllers\Frontend
  */
 class HomeController extends Controller
 {
@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $this->buildBreadcrumbs(['#' => trans('category::common.category')]);
-        return view('shop::frontend.home.index', compact('categories'));
+        $categories = app('category')->manage('product')->roots();
+        return view('shop::frontend.category.index', compact('categories'));
     }
 }

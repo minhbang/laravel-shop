@@ -13,7 +13,7 @@ return [
      */
     'middlewares' => [
         'frontend' => null,
-        'backend'  => 'admin',
+        'backend'  => 'role:admin',
     ],
     /**
      * Slug các trang đặc biệt
@@ -22,5 +22,15 @@ return [
         'contact_us'       => 'contact-us',
         'terms_conditions' => 'terms-conditions',
         'order_success'    => 'order-success',
+    ],
+    /**
+     * Default options
+     */
+    'options'     => [
+        'search' => [
+            'sort'      => 'name.asc',
+            'page_size' => 6,
+            'type'      => 'th',
+        ],
     ],
 ];

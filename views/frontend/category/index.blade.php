@@ -2,7 +2,7 @@
 @section('content')
     <div class="page-category">
         @foreach($categories as $category)
-            {!! $category->present()->htmlProductsTop !!}
+            {!! ShopWidget::productsTop($category) !!}
         @endforeach
     </div>
 @endsection

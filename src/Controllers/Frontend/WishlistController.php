@@ -1,14 +1,14 @@
 <?php
-namespace Minhbang\LaravelShop\Controllers\Frontend;
+namespace Minhbang\Shop\Controllers\Frontend;
 
-use Minhbang\LaravelKit\Extensions\Controller;
-use Minhbang\LaravelProduct\Models\Product;
+use Minhbang\Kit\Extensions\Controller;
+use Minhbang\Product\Models\Product;
 use Wishlist;
 
 /**
  * Class WishlistController
  *
- * @package Minhbang\LaravelShop\Controllers\Frontend
+ * @package Minhbang\Shop\Controllers\Frontend
  */
 class WishlistController extends Controller
 {
@@ -29,7 +29,7 @@ class WishlistController extends Controller
      */
     public function show()
     {
-        $ids = Wishlist::getContent()->lists('id');
+        $ids = Wishlist::getContent()->pluck('id');
         $products = Product::whereIn('id', $ids)->orderBy('price')->get();
         $this->buildBreadcrumbs(['#' => trans('shop::cart.wishlist')]);
         return view('shop::frontend.cart.wishlist', compact('products'));
@@ -38,13 +38,13 @@ class WishlistController extends Controller
     /**
      * So sánh $product với danh sách Wishlist
      *
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      *
      * @return \Illuminate\View\View
      */
     public function compare($product)
     {
-        $ids = Wishlist::getContent()->lists('id')->all();
+        $ids = Wishlist::getContent()->pluck('id')->all();
         if ($ids) {
             $ids = array_diff($ids, [$product->id]);
             $products = Product::whereIn('id', $ids)->orderBy('price')->get()->all();
@@ -58,7 +58,7 @@ class WishlistController extends Controller
     /**
      * Add/Remove $product => danh sách Wishlist
      *
-     * @param \Minhbang\LaravelProduct\Models\Product $product
+     * @param \Minhbang\Product\Models\Product $product
      *
      * @return \Illuminate\Http\JsonResponse
      */

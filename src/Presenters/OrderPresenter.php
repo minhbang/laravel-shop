@@ -1,13 +1,13 @@
 <?php
-namespace Minhbang\LaravelShop\Presenters;
+namespace Minhbang\Shop\Presenters;
 use Form;
 use Laracasts\Presenter\Presenter;
-use Minhbang\LaravelKit\Traits\Presenter\DatetimePresenter;
+use Minhbang\Kit\Traits\Presenter\DatetimePresenter;
 
 /**
  * Class OrderPresenter
  *
- * @package Minhbang\LaravelShop\Presenters
+ * @package Minhbang\Shop\Presenters
  */
 class OrderPresenter extends Presenter
 {
