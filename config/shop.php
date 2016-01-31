@@ -27,13 +27,18 @@ return [
      * Default options
      */
     'options'     => [
-        'search' => [
+        'search'   => [
             'sort'      => 'name.asc',
             'page_size' => 6,
             'type'      => 'th',
         ],
         'category' => [
-            'sort'      => 'updated.desc',
+            'sort'      => 'position.asc',
+            'page_size' => 6,
+            'type'      => 'th',
+        ],
+        'product'  => [
+            'sort'      => 'updated.asc',
             'page_size' => 6,
             'type'      => 'th',
         ],

@@ -27,12 +27,13 @@ class DisplayOption extends Option
     {
         return [
             'sort'      => [
+                'position.asc' => trans('shop::common.sort_default'),
                 'name.asc'     => trans('shop::common.sort_name') . trans('shop::common.sort_str_asc'),
                 'name.desc'    => trans('shop::common.sort_name') . trans('shop::common.sort_str_desc'),
                 'price.asc'    => trans('shop::common.sort_price') . trans('shop::common.sort_int_asc'),
                 'price.desc'   => trans('shop::common.sort_price') . trans('shop::common.sort_int_desc'),
-                'updated.asc'  => trans('shop::common.sort_updated') . trans('shop::common.sort_time_asc'),
                 'updated.desc' => trans('shop::common.sort_updated') . trans('shop::common.sort_time_desc'),
+                'updated.asc'  => trans('shop::common.sort_updated') . trans('shop::common.sort_time_asc'),
             ],
             'page_size' => [6 => 6, 12 => 12, 30 => 30, 60 => 60],
         ];
@@ -47,9 +48,10 @@ class DisplayOption extends Option
     {
         return [
             'sort' => [
-                'name'    => 'products.name',
-                'price'   => 'products.price',
-                'updated' => 'products.updated_at',
+                'position' => 'products.position',
+                'name'     => 'products.name',
+                'price'    => 'products.price',
+                'updated'  => 'products.updated_at',
             ],
         ];
     }
@@ -60,7 +62,7 @@ class DisplayOption extends Option
     protected function rules()
     {
         return [
-            'sort'      => '/^(name|price|updated)\.(asc|desc)$/',
+            'sort'      => '/^(position|name|price|updated)\.(asc|desc)$/',
             'page_size' => '/^[\d]+$/',
             'type'      => '/^(th|list)$/',
         ];

@@ -14,6 +14,7 @@ return [
 
     'display_th'     => 'Xem theo ô lưới',
     'display_list'   => 'Xem theo danh sách',
+    'sort_default'   => 'Mặc định',
     'sort_name'      => 'Tên',
     'sort_price'     => 'Giá',
     'sort_updated'   => 'Cập nhật',
@@ -23,8 +24,8 @@ return [
     'sort_str_desc'  => ' (Z → A)',
     'sort_int_asc'   => ' (Tăng dần)',
     'sort_int_desc'  => ' (Giảm dần)',
-    'sort_time_asc'  => ' (Mới → Cũ)',
-    'sort_time_desc' => ' (Cũ → Mới)',
+    'sort_time_asc'  => ' (Cũ → Mới)',
+    'sort_time_desc' => ' (Mới → Cũ)',
     'page_size'      => 'Hiển thị',
     'page_size_hint' => 'Sản phẩm / Trang',
     'empty_items'    => 'Không có Sản phẩm...',
