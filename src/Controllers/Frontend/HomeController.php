@@ -2,7 +2,6 @@
 namespace Minhbang\Shop\Controllers\Frontend;
 
 use Minhbang\Kit\Extensions\Controller;
-
 /**
  * Class HomeController
  *
