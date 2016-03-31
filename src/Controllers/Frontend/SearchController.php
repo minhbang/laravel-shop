@@ -4,7 +4,7 @@ namespace Minhbang\Shop\Controllers\Frontend;
 use Minhbang\Product\Models\Manufacturer;
 use Minhbang\Product\Models\Product;
 use Illuminate\Http\Request;
-use Minhbang\Category\Item as Category;
+use Minhbang\Category\Category as Category;
 use Minhbang\Kit\Extensions\Controller;
 use Minhbang\Option\OptionableController;
 use Minhbang\Shop\DisplayOption;
@@ -66,7 +66,7 @@ class SearchController extends Controller
         }
         $products = $this->optionAppliedPaginate($query);
         $total = $products->total();
-        $categories = app('category')->manage('product')->selectize();
+        $categories = app('category-manager')->root('product')->selectize();
         $enums = (new Product())->loadEnums('id');
         $manufacturers = Manufacturer::getList();
 

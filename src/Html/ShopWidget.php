@@ -14,7 +14,7 @@ use Minhbang\Product\Models\Manufacturer;
  */
 class ShopWidget
 {
-    /** @var  \Minhbang\Category\Manager */
+    /** @var  \Minhbang\Category\Root */
     protected $categoryManager;
 
     /**
@@ -22,11 +22,11 @@ class ShopWidget
      */
     public function __construct()
     {
-        $this->categoryManager = app('category')->manage('product');
+        $this->categoryManager = app('category-manager')->root('product');
     }
 
     /**
-     * @param \Minhbang\Category\Item $category
+     * @param \Minhbang\Category\Category $category
      * @param int $limit
      *
      * @return null|string
@@ -59,7 +59,7 @@ class ShopWidget
 
     public function sidebarCategories()
     {
-        /** @var \Minhbang\Category\Item[] $categories */
+        /** @var \Minhbang\Category\Category[] $categories */
         $categories = $this->categoryManager->roots();
         $html = '';
         foreach ($categories as $category) {

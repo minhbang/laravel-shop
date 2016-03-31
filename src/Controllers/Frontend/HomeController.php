@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = app('category')->manage('product')->roots();
+        $categories = app('category-manager')->root('product')->roots();
         return view('shop::frontend.category.index', compact('categories'));
     }
 }

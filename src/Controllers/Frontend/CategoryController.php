@@ -1,7 +1,7 @@
 <?php
 namespace Minhbang\Shop\Controllers\Frontend;
 
-use Minhbang\Category\Item as Category;
+use Minhbang\Category\Category as Category;
 use Minhbang\Option\OptionableController;
 use Minhbang\Product\Models\Product;
 use Minhbang\Kit\Extensions\Controller;
@@ -34,7 +34,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = app('category')->manage('product')->roots();
+        $categories = app('category-manager')->root('product')->roots();
         $this->buildBreadcrumbs(['#' => trans('category::common.category')]);
 
         return view('shop::frontend.category.index', compact('categories'));
@@ -47,7 +47,7 @@ class CategoryController extends Controller
      */
     public function show($slug)
     {
-        /** @var \Minhbang\Category\Item $category */
+        /** @var \Minhbang\Category\Category $category */
         if (is_null($category = Category::findBySlug($slug))) {
             abort(404);
         }
