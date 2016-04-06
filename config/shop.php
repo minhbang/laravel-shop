@@ -9,10 +9,10 @@ return [
      */
     'add_route'   => true,
     /**
-     * Khai báo middlewares cho các Controller
+     * Khai báo middlewares cho các Controller, KHÔNG CÓ ghi []
      */
     'middlewares' => [
-        'frontend' => null,
+        'frontend' => [],
         'backend'  => 'role:admin',
     ],
     /**

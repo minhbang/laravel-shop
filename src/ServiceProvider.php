@@ -5,7 +5,7 @@ namespace Minhbang\Shop;
 use Illuminate\Routing\Router;
 use Darryldecode\Cart\CartCondition;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Minhbang\Kit\Extensions\BaseServiceProvider;
 use Minhbang\Shop\Extensions\Cart;
 use Minhbang\Shop\Html\ShopWidget;
 use Minhbang\Shop\Facades\CartFacade;
@@ -38,10 +38,8 @@ class ServiceProvider extends BaseServiceProvider
             ]
         );
 
-        if (config('shop.add_route') && !$this->app->routesAreCached()) {
-            require __DIR__ . '/routes.php';
-        }
-
+        $this->mapWebRoutes($router, __DIR__ . '/routes.php', config('shop.add_route'));
+        
         if ($vat = config('shop.vat')) {
             $this->app['cart']->condition(new CartCondition(
                 [
