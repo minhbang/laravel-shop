@@ -147,7 +147,7 @@ class Order extends Model
         $order = new Order();
         $order->fill($request->all());
         $order->subtotal = $cart['subtotal'];
-        $order->tax = $cart['vat'];
+        $order->tax = $cart['tax'];
         $order->payment_id = $payment_id;
         $order->status = $status;
         $order->save();
