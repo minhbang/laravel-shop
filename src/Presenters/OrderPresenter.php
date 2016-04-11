@@ -1,5 +1,7 @@
 <?php
 namespace Minhbang\Shop\Presenters;
+
+use Html;
 use Form;
 use Laracasts\Presenter\Presenter;
 use Minhbang\Kit\Traits\Presenter\DatetimePresenter;
@@ -18,7 +20,7 @@ class OrderPresenter extends Presenter
      */
     public function subtotal()
     {
-        return price_format($this->entity->subtotal, 'đ', false, true);
+        return price_format($this->entity->subtotal, config('shop.currency_short'), false, true, config('shop.decimals'));
     }
 
     /**
@@ -26,7 +28,7 @@ class OrderPresenter extends Presenter
      */
     public function tax()
     {
-        return price_format($this->entity->tax, 'đ', false, true);
+        return price_format($this->entity->tax, config('shop.currency_short'), false, true, config('shop.decimals'));
     }
 
     /**
@@ -34,7 +36,7 @@ class OrderPresenter extends Presenter
      */
     public function total()
     {
-        return price_format($this->entity->subtotal + $this->entity->tax, 'đ', false, true);
+        return price_format($this->entity->subtotal + $this->entity->tax, config('shop.currency_short'), false, true, config('shop.decimals'));
     }
 
     /**
@@ -61,6 +63,7 @@ HTML;
         foreach ($this->entity->products as $product) {
             $html .= "- <code>{$product->pivot->quantity}</code> {$product->name}<br />";
         }
+
         return '<div class="products-info">' . $html . '</div>';
     }
 
@@ -71,14 +74,29 @@ HTML;
     {
         $css = $this->entity->itemAlias('StatusCss', $this->entity->status);
         $status = $this->entity->itemAlias('Status', $this->entity->status);
+
         return "<span class=\"label label-{$css}\">$status</span>";
     }
 
     /**
      * @return string
      */
-    public function status_button()
+    public function status_buttons()
     {
-        return Form::select ('status', $this->entity->statuses(), $this->entity->status,['class' => 'select-btngroup', 'data-size' => 'xs']);
+        return Form::select('status', $this->entity->statuses(), $this->entity->status, ['class' => 'select-btngroup', 'data-size' => 'xs']);
+    }
+
+    /**
+     * @param int $status
+     *
+     * @return string
+     */
+    public function status_button($status)
+    {
+        $type = $this->entity->itemAlias('StatusCss', $status);
+        $label = $this->entity->itemAlias('Status', $status);
+        $url = route('backend.order.status', ['order' => $this->entity->id, 'status' => $status]);
+
+        return Html::linkButton($url, $label, ['class' => 'post-link', 'type' => $type, 'size' => 'xs']);
     }
 }

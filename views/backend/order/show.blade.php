@@ -32,7 +32,7 @@
                     <tr>
                         <td style="vertical-align: middle">{{ trans('shop::order.statuses') }}</td>
                         <td class="text-right">
-                            {!! $order->present()->status_button !!}
+                            {!! $order->present()->status !!}
                         </td>
                     </tr>
                 </table>
@@ -107,8 +107,8 @@
                     <td class="min-width">{{$product->code}}</td>
                     <td><a href="{{route('backend.product.show', ['product' => $product->id])}}">{{$product->name}}</a></td>
                     <td class="min-width">{{$product->pivot->quantity}}</td>
-                    <td class="min-width text-right">{{price_format($product->price, 'đ', false, true)}}</td>
-                    <td class="min-width text-right">{{price_format($product->price * $product->pivot->quantity, 'đ', false, true)}}</td>
+                    <td class="min-width text-right">{{price_format($product->price, config('shop.currency_short'), false, true, config('shop.decimals'))}}</td>
+                    <td class="min-width text-right">{{price_format($product->price * $product->pivot->quantity, config('shop.currency_short'), false, true, config('shop.decimals'))}}</td>
                 </tr>
                 @endforeach
                 </tbody>

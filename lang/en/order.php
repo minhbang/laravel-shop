@@ -12,11 +12,11 @@ return [
     'invalid_status_value'  => 'Invalid status value',
 
     'status'   => [
-        'new'        => 'New',
-        'contacted'  => 'Contacted',
-        'processing' => 'Processing',
-        'canceled'   => 'Canceled',
-        'completed'  => 'Completed',
+        'new'             => 'New',
+        'canceled'        => 'Canceled',
+        'payment_failed'  => 'Payment failed',
+        'payment_success' => 'Payment success',
+        'delivered'       => 'Delivered',
     ],
 
     // show

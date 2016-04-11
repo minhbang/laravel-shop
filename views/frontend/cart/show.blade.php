@@ -40,8 +40,8 @@
                                         ['class' => 'quick-update-text']
                                     ) !!}
                                 </td>
-                                <td class="min-width price">{{price_format($item->price, 'đ', false, true)}}</td>
-                                <td class="min-width price calculated">{{price_format($item->price * $item->quantity, 'đ', false, true)}}</td>
+                                <td class="min-width price">{{price_format($item->price, config('shop.currency_short'), false, true, config('shop.decimals'))}}</td>
+                                <td class="min-width price calculated">{{price_format($item->price * $item->quantity, config('shop.currency_short'), false, true, config('shop.decimals'))}}</td>
                                 <td class="min-width text-center"><a href="{{route('cart.remove', ['product' => $item->id])}}" data-action="cart-remove" data-ref="cart-show"><i class="fa fa-times"></i></a></td>
                             </tr>
                             @endforeach
@@ -52,7 +52,7 @@
                             </tr>
                             <tr>
                                 <td colspan="6" class="text-right"><strong>{{trans('shop::cart.tax_vat')}}</strong></td>
-                                <td class="price cart-vat">{!!$vat!!}</td>
+                                <td class="price cart-vat">{!!$tax!!}</td>
                                 <td></td>
                             </tr>
                             <tr>

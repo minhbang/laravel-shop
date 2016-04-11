@@ -20,7 +20,7 @@ return [
     'subtotal'                => 'Subtotal',
     'total'                   => 'Total',
     'order_total'             => 'Order total',
-    'tax_vat'                 => 'VAT Tax(10%)',
+    'tax_vat'                 => 'Tax',
     'show'                    => 'View details',
     'continue_shopping'       => 'Continue shopping',
     'checkout'                => 'Checkout',

@@ -39,7 +39,7 @@ class ServiceProvider extends BaseServiceProvider
         );
 
         $this->mapWebRoutes($router, __DIR__ . '/routes.php', config('shop.add_route'));
-        
+
         if ($vat = config('shop.vat')) {
             $this->app['cart']->condition(new CartCondition(
                 [

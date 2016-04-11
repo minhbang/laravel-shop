@@ -18,13 +18,13 @@ class Cart extends BaseCart
         $count = $items->count();
         $total = $this->getTotal();
         $subtotal = $this->getSubTotal();
-        $vat = $count && config('shop.vat') ? $this->getCondition('VAT')->getCalculatedValue($subtotal) : null;
+        $tax = ($count && config('shop.vat')) ? $this->getCondition('VAT')->getCalculatedValue($subtotal) : null;
         if ($format) {
-            $total = price_format($total, 'đ', false, true);
-            $subtotal = price_format($subtotal, 'đ', false, true);
-            $vat = price_format($vat, 'đ', false, true);
+            $total = price_format($total, config('shop.currency_short'), false, true, config('shop.decimals'));
+            $subtotal = price_format($subtotal, config('shop.currency_short'), false, true, config('shop.decimals'));
+            $tax = price_format($tax, config('shop.currency_short'), false, true, config('shop.decimals'));
         }
-        return compact('items', 'count', 'total', 'subtotal', 'vat');
+        return compact('items', 'count', 'total', 'subtotal', 'tax');
     }
 
     /**

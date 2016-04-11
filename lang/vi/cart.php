@@ -20,7 +20,7 @@ return [
     'subtotal'                => 'Tổng',
     'total'                   => 'Tổng',
     'order_total'             => 'Tổng cộng',
-    'tax_vat'                 => 'Thuế VAT(10%)',
+    'tax_vat'                 => 'Thuế',
     'show'                    => 'Xem chi tiết',
     'continue_shopping'       => 'Tiếp tục mua hàng',
     'checkout'                => 'Thanh toán',

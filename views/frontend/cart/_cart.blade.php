@@ -17,7 +17,7 @@
                             <a href="{{$item->attributes->url}}">{{$item->name}}</a>
                         </td>
                         <td class="min-width text-nowrap">x {{$item->quantity}}</td>
-                        <td class="text-right min-width">{{price_format($item->price, 'đ', false, true)}}</td>
+                        <td class="text-right min-width">{{price_format($item->price, config('shop.currency_short'), false, true, config('shop.decimals'))}}</td>
                         <td class="min-width">
                             @if($removable)
                                 <a href="{{route('cart.remove', ['product' => $item->id])}}" data-action="cart-remove" data-ref="cart-dropdown" data-id="{{$item->id}}"><i class="fa fa-times"></i></a>
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td class="text-right"><strong>{{trans('shop::cart.tax_vat')}}</strong></td>
-                    <td><span class="price cart-vat">{{$vat}}</span></td>
+                    <td><span class="price cart-vat">{{$tax}}</span></td>
                 </tr>
                 <tr>
                     <td class="text-right"><strong>{{trans('shop::cart.order_total')}}</strong></td>

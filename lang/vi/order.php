@@ -11,15 +11,16 @@ return [
     'update_status_success' => 'Cập nhật trạng thái Đơn hàng thành công',
     'invalid_status_value'  => 'Trạng thái không hợp lệ',
 
-    'status'                => [
-        'new'        => 'Mới',
-        'contacted'  => 'Đã liên hệ',
-        'processing' => 'Đang xử lý',
-        'canceled'   => 'Hủy bỏ',
-        'completed'  => 'Hoàn thành',
+    'status'   => [
+        'new'             => 'Mới',
+        'canceled'        => 'Đã hủy',
+        'payment_failed'  => 'Thanh toán bị lỗi',
+        'payment_success' => 'Thanh toán thành công',
+        'delivered'       => 'Đã giao hàng',
     ],
+
     // show
-    'products'              => 'Sản phẩm',
-    'info'                  => 'Thông tin',
-    'price'                 => 'Thành tiền',
+    'products' => 'Sản phẩm',
+    'info'     => 'Thông tin',
+    'price'    => 'Thành tiền',
 ];

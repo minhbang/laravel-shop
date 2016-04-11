@@ -6,6 +6,7 @@ use Minhbang\Kit\Extensions\Model;
 use Minhbang\Kit\Traits\Model\HasAlias;
 use Minhbang\Kit\Traits\Model\SearchQuery;
 use Minhbang\Kit\Traits\Model\DatetimeQuery;
+use Minhbang\Product\Models\Product;
 
 /**
  * Class Order
@@ -19,10 +20,10 @@ use Minhbang\Kit\Traits\Model\DatetimeQuery;
  * @property boolean $status
  * @property integer $subtotal
  * @property integer $tax
+ * @property string $payment_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Minhbang\Product\Models\Product[] $products
- * @property-read mixed $resource_name
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereEmail($value)
@@ -31,10 +32,13 @@ use Minhbang\Kit\Traits\Model\DatetimeQuery;
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereStatus($value)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereSubtotal($value)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereTax($value)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order wherePaymentId($value)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order queryDefault()
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Kit\Extensions\Model except($id = null)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Kit\Extensions\Model whereAttributes($attributes)
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Kit\Extensions\Model findText($column, $text)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order orderCreated($direction = 'desc')
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order orderUpdated($direction = 'desc')
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order period($start = null, $end = null, $field = 'created_at', $end_if_day = false, $is_month = false)
@@ -42,18 +46,20 @@ use Minhbang\Kit\Traits\Model\DatetimeQuery;
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order yesterday($same_time = false, $field = 'created_at')
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order thisWeek($field = 'created_at')
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order thisMonth($field = 'created_at')
+ * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchKeyword($keyword, $columns = null)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhere($column, $operator = '=', $fn = null)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhereIn($column, $fn)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhereBetween($column, $fn = null)
  * @method static \Illuminate\Database\Query\Builder|\Minhbang\Shop\Models\Order searchWhereInDependent($column, $column_dependent, $fn, $empty = [])
+ * @mixin \Eloquent
  */
 class Order extends Model
 {
-    const STATUS_NEW = 1;
-    const STATUS_CONTACTED = 2;
-    const STATUS_PROCESSING = 3;
-    const STATUS_CANCELED = 4;
-    const STATUS_COMPLETED = 5;
+    const STATUS_NEW             = 1;
+    const STATUS_CANCELED        = 2;
+    const STATUS_PAYMENT_FAILED  = 3;
+    const STATUS_PAYMENT_SUCCESS = 4;
+    const STATUS_DELIVERED       = 5;
 
     use PresentableTrait;
     use DatetimeQuery;
@@ -70,18 +76,18 @@ class Order extends Model
     {
         return [
             'Status'    => [
-                static::STATUS_NEW        => trans('shop::order.status.new'),
-                static::STATUS_CONTACTED  => trans('shop::order.status.contacted'),
-                static::STATUS_PROCESSING => trans('shop::order.status.processing'),
-                static::STATUS_CANCELED   => trans('shop::order.status.canceled'),
-                static::STATUS_COMPLETED  => trans('shop::order.status.completed'),
+                static::STATUS_NEW             => trans('shop::order.status.new'),
+                static::STATUS_CANCELED        => trans('shop::order.status.canceled'),
+                static::STATUS_PAYMENT_FAILED  => trans('shop::order.status.payment_failed'),
+                static::STATUS_PAYMENT_SUCCESS => trans('shop::order.status.payment_success'),
+                static::STATUS_DELIVERED       => trans('shop::order.status.delivered'),
             ],
             'StatusCss' => [
-                static::STATUS_NEW        => 'success',
-                static::STATUS_CONTACTED  => 'primary',
-                static::STATUS_PROCESSING => 'danger',
-                static::STATUS_CANCELED   => 'default',
-                static::STATUS_COMPLETED  => 'warning',
+                static::STATUS_NEW             => 'success',
+                static::STATUS_CANCELED        => 'default',
+                static::STATUS_PAYMENT_FAILED  => 'danger',
+                static::STATUS_PAYMENT_SUCCESS => 'primary',
+                static::STATUS_DELIVERED       => 'info',
             ],
         ];
     }
@@ -106,6 +112,7 @@ class Order extends Model
                 ],
             ];
         }
+
         return $result;
     }
 
@@ -127,5 +134,37 @@ class Order extends Model
     public function scopeQueryDefault($query)
     {
         return $query->select("{$this->table}.*");
+    }
+
+    /**
+     * @param \Minhbang\Shop\Requests\OrderRequest $request
+     * @param array $cart
+     * @param string $payment_id
+     * @param int $status
+     */
+    public static function addNew($request, $cart, $payment_id, $status)
+    {
+        $order = new Order();
+        $order->fill($request->all());
+        $order->subtotal = $cart['subtotal'];
+        $order->tax = $cart['vat'];
+        $order->payment_id = $payment_id;
+        $order->status = $status;
+        $order->save();
+        foreach ($cart['items'] as $item) {
+            $order->products()->save(Product::find($item['id']), ['quantity' => $item['quantity']]);
+        }
+    }
+
+    /**
+     * @param string $payment_id
+     * @param int $status
+     */
+    public static function updateStatus($payment_id, $status)
+    {
+        if ($payment_id && ($model = static::findBy('payment_id', $payment_id))) {
+            $model->status = $status;
+            $model->save();
+        }
     }
 }

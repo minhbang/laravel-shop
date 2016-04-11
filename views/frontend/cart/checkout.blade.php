@@ -17,7 +17,7 @@
 								<dt>{{trans('shop::cart.subtotal')}} :</dt>
 								<dd>{!!$subtotal!!}</dd>
 								<dt>{{trans('shop::cart.tax_vat')}} :</dt>
-								<dd>{!!$vat!!}</dd>
+								<dd>{!!$tax!!}</dd>
 							</dl>
 							<hr>
 							<dl class="dl-horizontal total">

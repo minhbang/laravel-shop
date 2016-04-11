@@ -27,6 +27,7 @@ class OrderController extends Controller
             $query->searchWhere('orders.status')
                 ->searchWhereBetween('orders.created_at', 'mb_date_vn2mysql');
         }
+
         return Datatable::query($query)
             ->addColumn(
                 'index',
@@ -49,13 +50,16 @@ class OrderController extends Controller
             ->addColumn(
                 'status',
                 function (Order $model) {
-                    return $model->present()->status_button;
+                    return $model->present()->status;
                 }
             )
             ->addColumn(
                 'actions',
                 function (Order $model) {
-                    return Html::tableActions(
+                    $buttons = ($model->status == Order::STATUS_PAYMENT_SUCCESS) ?
+                        $model->present()->status_button(Order::STATUS_DELIVERED) : '';
+
+                    return $buttons . Html::tableActions(
                         'backend.order',
                         ['order' => $model->id],
                         $model->name,
@@ -85,7 +89,9 @@ class OrderController extends Controller
         ];
         $options = [
             'aoColumnDefs' => [
-                ['sClass' => 'min-width', 'aTargets' => [0, -1, -2]],
+                ['sClass' => 'min-width', 'aTargets' => [0]],
+                ['sClass' => 'min-width text-center', 'aTargets' => [-2]],
+                ['sClass' => 'min-width text-right', 'aTargets' => [-1]],
             ],
         ];
         $table = Datatable::table()
@@ -100,6 +106,7 @@ class OrderController extends Controller
             ->setCustomValues($tableOptions);
         $statuses = (new Order())->itemAlias('Status');
         $this->buildHeading(trans('shop::order.manage'), 'fa-list', ['#' => trans('shop::order.order')]);
+
         return view('shop::backend.order.index', compact('tableOptions', 'options', 'table', 'statuses'));
     }
 
@@ -119,6 +126,7 @@ class OrderController extends Controller
             'fa-list-alt',
             [route('backend.order.index') => trans('shop::order.order'), '#' => trans('common.detail')]
         );
+
         return view('shop::backend.order.show', compact('order', 'products', 'config'));
     }
 
@@ -132,6 +140,7 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $order->delete();
+
         return response()->json(
             [
                 'type'    => 'success',
@@ -145,6 +154,7 @@ class OrderController extends Controller
      *
      * @param \Minhbang\Shop\Models\Order $order
      * @param int $status
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function status(Order $order, $status)
@@ -153,6 +163,7 @@ class OrderController extends Controller
             $order->status = $status;
             $order->timestamps = false;
             $order->save();
+
             return response()->json([
                 'type'    => 'success',
                 'content' => trans('shop::order.update_status_success'),

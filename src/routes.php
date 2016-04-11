@@ -24,6 +24,8 @@ Route::group(
                 Route::get('show', ['as' => 'show', 'uses' => 'CartController@show']);
                 Route::get('checkout', ['as' => 'checkout', 'uses' => 'CartController@checkout']);
                 Route::post('complete', ['as' => 'complete', 'uses' => 'CartController@complete']);
+                Route::get('status', ['as' => 'status', 'uses' => 'CartController@status']);
+                Route::get('cancel', ['as' => 'cancel', 'uses' => 'CartController@cancel']);
             }
         );
 

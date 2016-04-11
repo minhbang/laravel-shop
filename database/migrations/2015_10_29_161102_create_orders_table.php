@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->integer('subtotal')->unsigned();
             $table->integer('tax')->unsigned();
+            $table->string('payment_id')->index();
             $table->nullableTimestamps();
         });
     }
