@@ -28,7 +28,9 @@ return [
     'pages'          => [
         'contact_us'       => 'contact-us',
         'terms_conditions' => 'terms-conditions',
-        'order_success'    => 'order-success',
+        'payment_failed'    => 'payment-failed',
+        'payment_success'    => 'payment-success',
+        'payment_canceled'    => 'payment-canceled',
     ],
     /**
      * Default options

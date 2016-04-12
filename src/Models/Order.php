@@ -83,9 +83,9 @@ class Order extends Model
                 static::STATUS_DELIVERED       => trans('shop::order.status.delivered'),
             ],
             'StatusCss' => [
-                static::STATUS_NEW             => 'success',
+                static::STATUS_NEW             => 'danger',
                 static::STATUS_CANCELED        => 'default',
-                static::STATUS_PAYMENT_FAILED  => 'danger',
+                static::STATUS_PAYMENT_FAILED  => 'warning',
                 static::STATUS_PAYMENT_SUCCESS => 'primary',
                 static::STATUS_DELIVERED       => 'info',
             ],
@@ -147,7 +147,7 @@ class Order extends Model
         $order = new Order();
         $order->fill($request->all());
         $order->subtotal = $cart['subtotal'];
-        $order->tax = $cart['tax'];
+        $order->tax = $cart['tax'] ?: 0;
         $order->payment_id = $payment_id;
         $order->status = $status;
         $order->save();

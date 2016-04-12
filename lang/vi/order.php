@@ -12,7 +12,7 @@ return [
     'invalid_status_value'  => 'Trạng thái không hợp lệ',
 
     'status'   => [
-        'new'             => 'Mới',
+        'new'             => 'Chưa thanh toán',
         'canceled'        => 'Đã hủy',
         'payment_failed'  => 'Thanh toán bị lỗi',
         'payment_success' => 'Thanh toán thành công',
